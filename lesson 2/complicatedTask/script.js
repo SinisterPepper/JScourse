@@ -8,21 +8,36 @@ var week = [
 			'Sunday'
 			];
 
+var date = new Date();
+day = date.getDay();
+console.log(day);
+
 for (var i = 0; i < week.length; i++){
 	switch (week[i]){
 
 		case 'Saturday':
+			if(day == 6){
+				document.write(week[i].italics().bold() + "<br>");
+			} else {
+				document.write(week[i].bold() + "<br>");
+			}
+			break;
+			
 		case 'Sunday':
-			document.write(week[i].bold() + "<br>");
+			if (day == 0) {
+				document.write(week[i].bold().italics() + "<br>");
+			} else {
+				document.write(week[i].bold() + "<br>");
+			}
+			
 			break;
-
-		case 'Thursday':
-			document.write(week[i].italics() + "<br>");
-			break;
-		//Или необходимо вычислить текущий день?
 
 		default:
-			document.write(week[i] + '<br>');
+			if (i == day - 1){
+				document.write(week[i].italics() + "<br>");
+			} else{
+				document.write(week[i] + '<br>');
+			}
 			break;
 	}
 }
