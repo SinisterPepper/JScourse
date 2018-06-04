@@ -80,15 +80,10 @@ function getDiscount(discount){
 
 
 
-
-
-/*Объект employers содержит массив staff содержащий имена сотрудников*/
-
-
 for(let i = 0; i < 4; i++){
 	let nameOfEmployer = prompt("Имя нового сотрудника?");
+
 	if((typeof(nameOfEmployer)) === 'string' && (typeof(nameOfEmployer)) != null && nameOfEmployer != ''){
-				
 			recruiteEmployer(i,nameOfEmployer);
 		} 
 
