@@ -8,11 +8,19 @@ console.log(getFriendlyNumbers(500,-500));
 console.log(getFriendlyNumbers(0,NaN));
 console.log(getFriendlyNumbers('1',500));*/
 
+
+/*console.log(getFriendlyNumbers(0,100));
 console.log(getFriendlyNumbers(0,500));
-//console.log(getFriendlyNumbers(220,284));
-//console.log(getFriendlyNumbers(0,3000));
+console.log(getFriendlyNumbers(220,284));
+console.log(getFriendlyNumbers(0,3000));*/
+//console.log(getFriendlyNumbers(1,500));
 
 
+module.exports = {
+    firstName: 'Roman',
+    secondName: 'Tikhonov',
+    task: getFriendlyNumbers
+}
 
 function getFriendlyNumbers(start, end) {
 	let friendlyNumbersArr = [];
@@ -22,13 +30,14 @@ function getFriendlyNumbers(start, end) {
 		//console.log("Некорректные границы!");
 		return false;	
 	}
-	
+	let str = ''
 	for(let i = start; i < end-1; i++){
 		for(let j = i+1; j <= end; j++){
 			if(isFriendly(i,j)){
 				friendlyNumbersArr.push([i,j]);
+				
 			}
-		}
+		}	
 	}
 	return friendlyNumbersArr;
 	/*Вычисляем дружественные числа в заданном диапазоне*/
