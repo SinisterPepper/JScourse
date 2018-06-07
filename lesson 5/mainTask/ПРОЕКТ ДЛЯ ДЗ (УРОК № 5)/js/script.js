@@ -102,23 +102,28 @@ var mainList = {
 
 
 let opn_btn = document.getElementById('open-btn');
-let name_value = document.getElementsByClassName('name-value');
-let budget_value = document.getElementsByClassName('budget-value');
-let goods_value = document.getElementsByClassName('goods-value');
-let items_value = document.getElementsByClassName('items-value');
-let employers_value = document.getElementsByClassName('employers-value');
-let discount_value = document.getElementsByClassName('discount-value');
-let isopen_value = document.getElementsByClassName('discount-value');
+let name_value = document.getElementsByClassName('name-value')[0];
+let budget_value = document.getElementsByClassName('budget-value')[0];
+let goods_value = document.getElementsByClassName('goods-value')[0];
+let items_value = document.getElementsByClassName('items-value')[0];
+let employers_value = document.getElementsByClassName('employers-value')[0];
+let discount_value = document.getElementsByClassName('discount-value')[0];
+let isopen_value = document.getElementsByClassName('discount-value')[0];
 
-let goods_item = document.getElementsByClassName('goods-item');
 
-let goods_item_btn = document.getElementsByTagName('goods-item-btn');
-let count_budget_btn = document.getElementsByTagName('count-budget-btn');
-let hire_employers_btn = document.getElementsByTagName('hire-employers-btn');
 
+let goods_item = document.getElementsByClassName('goods-item')[0];
+
+let goods_item_btn = document.getElementsByTagName('button')[1];
+let count_budget_btn = document.getElementsByTagName('button')[2];
+let hire_employers_btn = document.getElementsByTagName('button')[3];
+
+console.log(goods_item_btn);
+console.log(count_budget_btn);
+console.log(hire_employers_btn);
 let choose_item = document.querySelector('.choose-item');
 let time_value = document.querySelector('.time-value');
 let count_budget_value = document.querySelector('.count-budget-value');
 
 let hire_employers_item = document.querySelectorAll('.hire-employers-item');
-console.log(hire_employers_item);
+//console.log(hire_employers_item);
