@@ -102,8 +102,8 @@ var mainList = {
 }; //mainList
 
 //mainList.showShop();
-mainList.chooseShopItems();
-mainList.showShopItems();
+/*mainList.chooseShopItems();
+mainList.showShopItems();*/
 
 
 
@@ -117,7 +117,7 @@ let discount_value = document.getElementsByClassName('discount-value')[0];
 let isopen_value = document.getElementsByClassName('discount-value')[0];
 
 
-let goods_item = document.getElementsByClassName('goods-item')[0];
+let goods_item = document.getElementsByClassName('goods-item');
 
 let goods_item_btn = document.getElementsByTagName('button')[1];
 let count_budget_btn = document.getElementsByTagName('button')[2];

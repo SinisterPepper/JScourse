@@ -56,7 +56,24 @@ document.write(getDayOfWeek(date));
 
 function howMuchToWait(date1, date2){
 	let time = date2 - date1;
+	console.log(typeof(time / (1000*60*60*24)))
 	return time / (1000*60*60*24); //time в миллисекундах. Делим на секунду,минуту, час и сутки.
 }
 
 console.log(howMuchToWait(new Date(2018,0,1), new Date(2019,0,9)));
+
+let input1 = document.getElementsByTagName('input')[0];
+let input2 = document.getElementsByTagName('input')[1];
+let input3 = document.getElementsByTagName('input')[2];
+
+let button = document.getElementsByClassName('button')[0];
+
+
+button.addEventListener('click', function(){
+	console.log(input1.value);
+	let date1 = new Date(input1.value);
+	let date2 = new Date(input2.value);
+	input3.value = howMuchToWait(date1, date2);
+});
+
+
