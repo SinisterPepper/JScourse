@@ -35,7 +35,7 @@ opn_btn.addEventListener('click', () => {
 		budget = prompt("Ваш бюджет?", "");
 	}
 	budget_value.textContent = budget;
-	count_budget_btn.disabled = false;
+	count_budget_btn.disabled = false; //Кнопка неактивна пока не заполнится поле Бюджет магазина
 
 	storeName = prompt("Название вашего магазина?", '').toUpperCase();
 	name_value.textContent = storeName;
@@ -149,8 +149,8 @@ main_functions.addEventListener('change', function(event){
 
 	}
 });
-
-
+/*Обработчик для полей Категории товаров и  Имена сотрудников.
+Регулирует доступ к кнопкам Утвердить и Нанять*/
 
 
 function turnAllInputs (isOpen) {
@@ -186,7 +186,7 @@ function turnAllInputs (isOpen) {
 		hire_employers_item[2].disabled = false;
 	}
 }
-/*Функция регулирующая доступ к кнопкам. 
+/*Функция регулирующая доступ к кнопкам и полям, а также удаляющая значения полей после закрытия магазина. 
 Вызывается в обработчике поля time_value*/
 
 
