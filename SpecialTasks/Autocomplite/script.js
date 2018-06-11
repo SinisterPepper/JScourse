@@ -33,23 +33,46 @@ let countries = ["Австралия", "Австрия", "Азербайджан
 
 
 let inputField = document.getElementsByTagName('input')[0];
-let hintListDiv = document.getElementById('list');
+let hintListUl = document.getElementById('list');
+
 
 inputField.addEventListener('keyup', function(event){
-	let target  = event.target;
-	let reg = new RegExp('^'+ target.value, 'i');
 
-	hintListDiv.innerHTML = '';
-	hintListDiv.style.visibility = 'hidden';
+	let target = event.target;
+	let reg = new RegExp('^'+ target.value, 'i');	
+	hintListUl.style.visibility = 'hidden';
 
 	if(target.value.length > 0){
+		removeChildren();
 		for(let i = 0; i < countries.length; i++){
-
 			if(reg.test(countries[i])){
-				hintListDiv.style.visibility = "visible";
-				hintListDiv.innerHTML += countries[i] + "<br>";
+				hintListUl.style.visibility = "visible";
+				createNewElement(countries[i]);
 			}
 		}
-
 	}
+
+
+	hintListUl.addEventListener('click', function(typeElem){
+			let targetLi = typeElem.target;
+			target.value = targetLi.innerHTML;
+			removeChildren();
+	});
+	/*Обработчик для добавления выбранного значения из списка подсказок в поле inputField*/
 });
+
+
+function createNewElement(hintContent){
+	let hint = document.createElement('li');
+	hint.style.listStyleType = 'none';
+	hint.textContent = hintContent;
+	hintListUl.appendChild(hint);
+}
+/*Добавляем элемент списка в hintListUl*/
+
+function removeChildren(){
+	while (hintListUl.firstChild) {
+    	hintListUl.removeChild(hintListUl.firstChild);
+	}
+}
+/*Удаляем всех потомков hintListUl*/
