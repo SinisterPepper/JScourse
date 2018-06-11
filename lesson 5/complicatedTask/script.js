@@ -13,7 +13,15 @@ let param = {
 	year: 'numeric'
 };
 let today = date.toLocaleString("ru", param);
+console.log(today);
 let arr = today.split(', ').reverse();
+
+/*let dateArr = arr[1].split('.');
+let a = dateArr[0];
+dateArr[0] = dateArr[1];
+dateArr[1] = a;
+arr[1] = dateArr.join('.');*/
+
 mydiv1.textContent = arr.join(' ');
 
 

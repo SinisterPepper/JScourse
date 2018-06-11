@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    background-color: #1d1f20;
+    font-family: sans-serif;
+  }
+
+  .cell-center {
+    text-align: center;
+  }
+  
+  input[name="search-column"] {
+    display: none;
+  }
+  
+  label.active {
+    text-decoration: underline;
+  }
+  
+  .wrapper {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  td:nth-child(1) {
+    text-align: center;
+  }
+  
+  #search-text,
+  .search-field button {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .hidden {
+    display: none;
+  }
