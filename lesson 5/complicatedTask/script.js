@@ -92,14 +92,15 @@ body.addEventListener('change', function (event){
 		}
 	}
 	firstDate = input1.value.split(".");
+
 	secondDate = input2.value.split(".");
 });
 /*Обработчик делает кнопку Посчитать неактивной пока не заполнены оба поля*/
 
 
 button.addEventListener('click', function(){
-	let date1 = new Date(firstDate[2], firstDate[0]-1, firstDate[1]);
-	let date2 = new Date(secondDate[2], secondDate[0]-1, secondDate[1]);
+	let date1 = new Date(firstDate[2], firstDate[1], firstDate[0]-1);
+	let date2 = new Date(secondDate[2], secondDate[1], secondDate[0]-1 );
 	result.value = howMuchToWait(date1, date2);
 });
 /*Обработчик который запускает метод howMuchToWait при клике на кнопку Посчитать*/
