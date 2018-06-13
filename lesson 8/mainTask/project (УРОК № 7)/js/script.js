@@ -52,7 +52,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			hours = Math.floor((t/(1000*60*60)));
 		if(hours < 10){hours = "0" + hours;}
 		if(minutes < 10){minutes = "0" + minutes;}
-		if(seconds < 10){seconds = "0" + seconds}
+		if(seconds < 10){seconds = "0" + seconds;}
 		return {
 			'total': t,
 			'hours': hours,
@@ -81,10 +81,5 @@ window.addEventListener("DOMContentLoaded", function(){
 			updateClock();
 			timeInterval = setInterval(updateClock, 1000);
 	}
-
 	setClock('timer', deadline);
-		
-
-
-
 });
