@@ -9,5 +9,4 @@ let param = {
 };
 
 let timeIs = date.toLocaleString('ru', param);
-console.log(timeIs);
 div.textContent = timeIs;
