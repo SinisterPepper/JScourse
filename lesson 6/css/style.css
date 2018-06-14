@@ -1,56 +1,49 @@
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-body {
-  height: 670px;
-  background: url(../img/bg.jpg) center no-repeat;
+
+html, body{
+  width: 100%;
+  height: 100%
+}
+ body {
+  background: url(../img/bg5.jpg) center no-repeat;
   background-size: cover;
   word-break: break-all;
-}
-.open {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+  
+} 
+
+ .open {
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #000;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-  width: 350px;
-  height: 100px;
-  margin: 0 auto;
-  margin-top: 20px;
-}
+  justify-content: center;
+  align-items: center;
+  background-color: #070920;
+  width: 100%;
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+} 
 .open:before {
   content: "";
   display: block;
   position: absolute;
-  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-  width: 8px;
+  width: 50px;
   height: 20px;
-  background-color: #000;
-  margin: 0 auto;
-  -webkit-transform: translateY(-60px);
-      -ms-transform: translateY(-60px);
-          transform: translateY(-60px);
+  background-color: #070920;
+  top: 0;
+  left: -50px;
 }
 .open-btn {
   border: none;
   outline: none;
-  color: #fff;
+  color: #070920;
   font-weight: 900;
   cursor: pointer;
-  background-color: #5356ad;
+  background-color: #f9d9a0;
   box-shadow: 0px 0px 10px rgba(83, 86, 173, 0.5);
-  border-radius: 8px;
-  border: 1px solid #fff;
+  border-radius: 20px;
   width: 200px;
   height: 50px;
 }
@@ -87,9 +80,8 @@ body {
   width: 550px;
   min-height: 400px;
   padding: 20px;
-  background-color: #fff;
-  border: 1px solid black;
-}
+  border-radius: 30px;
+  background-color: #f9d9a0;}
 .main-info .name,
 .main-info .name-value,
 .main-info .budget,
@@ -104,10 +96,15 @@ body {
 .main-info .discount-value,
 .main-info .isopen,
 .main-info .isopen-value {
-  width: 48%;
+  width: 50%;
+  height: calc(100% / 9);
   margin-top: 10px;
-  min-height: 40px;
   padding: 10px;
+  color: #070920;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  display: flex;
   border: 1px solid rgba(0, 0, 0, 0.8);
 }
 .main-info .isopen-value,
@@ -118,59 +115,122 @@ body {
   width: 550px;
   min-height: 500px;
   padding: 20px;
-  background-color: #fff;
-  border: 1px solid black;
+  background-color: #f9d9a0;
+  border-radius: 30px;
+
+}
+.main-functions .input-style {
+    display: inline-block;
+    width: 80%;
+    height: 26px;
+    background: transparent;
+    border-radius: 13px;
+    border: 1px solid #333;
+    padding-left: 15px;
+    font-size: 12px;
+    outline: none;
+    transition: .3s;
+    position: relative;
+    color: #070920;
 }
 .main-functions .choose-goods,
 .main-functions .choose-items,
 .main-functions .time,
 .main-functions .count-budget,
 .main-functions .hire-employers {
+  
   margin-top: 5px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
 }
 .main-functions .goods-item {
   display: inline-block;
-  margin: 0 auto;
-  margin-top: 10px;
-  padding-left: 10px;
-  width: 49%;
-  height: 25px;
-}
-.main-functions .goods-item-btn {
+    width: 80%;
+    height: 26px;
+    background: transparent;
+    border-radius: 13px;
+    border: 1px solid #333;
+    padding-left: 15px;
+    font-size: 12px;
+    outline: none;
+    transition: .3s;
+    position: relative;
+    color: #070920;
   display: block;
   margin: 0 auto;
   margin-top: 10px;
+  padding-left: 10px;
+}
+.main-functions .goods-item-btn {
+  width: 150px;
+  height: 20px;
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  margin-top: 10px;
+  border-radius: 6px;
+  border-color: #070920;
+  color: #070920;
 }
 .main-functions .choose-item,
 .main-functions .time-value,
 .main-functions .count-budget-value {
+  display: inline-block;
+    width: 80%;
+    height: 26px;
+    background: transparent;
+    border-radius: 13px;
+    border: 1px solid #333;
+    padding-left: 15px;
+    font-size: 12px;
+    outline: none;
+    transition: .3s;
+    position: relative;
+    color: #070920;
   display: block;
   margin: 0 auto;
   margin-top: 10px;
   padding-left: 10px;
-  width: 70%;
-  height: 25px;
+
 }
-.main-functions .time-value {
-  width: 30%;
-}
-.main-functions .count-budget-value {
-  width: 30%;
-  display: inline-block;
-  margin-left: 25%;
+
+.main-functions .count-budget-btn{
+  width: 150px;
+  height: 20px;
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  margin-top: 10px;
+  border-radius: 6px;
+  border-color: #070920;
+  color: #070920;
 }
 .main-functions .hire-employers-item {
+  display: inline-block;
+    width: 80%;
+    height: 26px;
+    background: transparent;
+    border-radius: 13px;
+    border: 1px solid #333;
+    padding-left: 15px;
+    font-size: 12px;
+    outline: none;
+    transition: .3s;
+    position: relative;
+    color: #070920;
   display: block;
   margin: 0 auto;
   margin-top: 10px;
   padding-left: 10px;
-  width: 49%;
-  height: 25px;
 }
 .main-functions .hire-employers-btn {
+  width: 150px;
+  height: 20px;
   display: block;
   margin: 0 auto;
+  background: transparent;
   margin-top: 10px;
+  border-radius: 6px;
+  border-color: #070920;
+  color: #070920;
 }

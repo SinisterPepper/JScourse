@@ -105,6 +105,7 @@ count_budget_btn.addEventListener('click', () => {
 
 
 hire_employers_btn.addEventListener('click', () => {
+	employers_value.textContent = '';
 	for(let i = 0; i < hire_employers_item.length; i++){
 		
 		let name = hire_employers_item[i].value;
@@ -152,6 +153,20 @@ main_functions.addEventListener('change', function(event){
 /*Обработчик для полей Категории товаров и  Имена сотрудников.
 Регулирует доступ к кнопкам Утвердить и Нанять*/
 
+main_functions.addEventListener('keyup', function(event){
+	let target = event.target;
+	console.log(event);
+	let reg = /^[a-zа-яё]*$/i;
+	if(target.className === 'hire-employers-item'){
+		console.log(reg.test(event.key));
+		if(!reg.test(event.key)){
+			target.value = '';
+			alert(" Можно ввести только буквы!");
+		}
+	}
+});
+
+/*Обработчик не позволяющий ввести цифры*/
 
 function turnAllInputs (isOpen) {
 	if(!isOpen){
