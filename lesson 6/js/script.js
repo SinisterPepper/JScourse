@@ -136,7 +136,6 @@ main_functions.addEventListener('keypress', function(event){
 			target.value += event.key;
 		}
 		if(target.className === 'hire-employers-item'){
-			console.log(hire_employers_btn.disabled);
 		
 			if(hire_employers_item[0].value === '' || hire_employers_item[1].value === '' || 
 				hire_employers_item[2].value === ''){
@@ -148,7 +147,8 @@ main_functions.addEventListener('keypress', function(event){
 	}
 });
 
-/*Обработчик не позволяющий ввести цифры*/
+/*Обработчик к полям Имена сотрудников и кнопке Нанять
+Позволяет вводить только русские буквы*/
 
 
 main_functions.addEventListener('change', function(event){
@@ -156,7 +156,6 @@ main_functions.addEventListener('change', function(event){
 	console.log(hire_employers_btn.disabled);
 
 	if (target.className === 'goods-item'){
-
 		if(goods_item[0].value === '' || goods_item[1].value === '' || goods_item[2].value === '' ||
 		   			goods_item[3].value === ''){
 			   goods_item_btn.disabled = true;
@@ -164,40 +163,10 @@ main_functions.addEventListener('change', function(event){
 			   goods_item_btn.disabled = false;
 	          }
 	}
-
-	if(target.className === 'hire-employers-item'){
-		console.log(hire_employers_btn.disabled);
-		if(hire_employers_item[0].value === '' || hire_employers_item[1].value === '' || 
-			hire_employers_item[2].value === ''){
-			hire_employers_btn.disabled = true;
-		} else{
-			hire_employers_btn.disabled = false;
-		}
-
-	}
+	
 });
-/*Обработчик для полей Категории товаров и  Имена сотрудников.
-Регулирует доступ к кнопкам Утвердить и Нанять*/
-
-
-
-
-
-// event.type должен быть keypress
-function getChar(event) {
-	console.log(event.which);
-  if (event.which == null) { // IE
-    if (event.keyCode < 32) return null; // спец. символ
-    return String.fromCharCode(event.keyCode)
-  }
-
-  if (event.which != 0 && event.charCode != 0) { // все кроме IE
-    if (event.which < 1072) return null; // спец. символ
-    return String.fromCharCode(event.which); // остальные
-  }
-
-  return null; // спец. символ
-}
+/*Обработчик для полей Категории товаров
+Регулирует доступ к кнопке Утвердить*/
 
 
 function turnAllInputs (isOpen) {
@@ -235,9 +204,6 @@ function turnAllInputs (isOpen) {
 }
 /*Функция регулирующая доступ к кнопкам и полям, а также удаляющая значения полей после закрытия магазина. 
 Вызывается в обработчике поля time_value*/
-
-
-
 
 
 let mainList = {
