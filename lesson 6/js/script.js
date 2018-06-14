@@ -127,8 +127,33 @@ discount_value.addEventListener('click', () => {
 });
 /*Теперь поле discount_value работает как переключатель. Пользователь может активировать или дективировать дисконтную систему*/
 
+
+main_functions.addEventListener('keypress', function(event){
+	let target = event.target;
+	if(target.className === 'hire-employers-item'){
+		event.preventDefault();
+		if(/[А-яёЁ\s]/i.test(event.key)){
+			target.value += event.key;
+		}
+		if(target.className === 'hire-employers-item'){
+			console.log(hire_employers_btn.disabled);
+		
+			if(hire_employers_item[0].value === '' || hire_employers_item[1].value === '' || 
+				hire_employers_item[2].value === ''){
+				hire_employers_btn.disabled = true;
+			} else{
+				hire_employers_btn.disabled = false;
+			}
+		}
+	}
+});
+
+/*Обработчик не позволяющий ввести цифры*/
+
+
 main_functions.addEventListener('change', function(event){
 	let target = event.target;
+	console.log(hire_employers_btn.disabled);
 
 	if (target.className === 'goods-item'){
 
@@ -141,6 +166,7 @@ main_functions.addEventListener('change', function(event){
 	}
 
 	if(target.className === 'hire-employers-item'){
+		console.log(hire_employers_btn.disabled);
 		if(hire_employers_item[0].value === '' || hire_employers_item[1].value === '' || 
 			hire_employers_item[2].value === ''){
 			hire_employers_btn.disabled = true;
@@ -153,20 +179,26 @@ main_functions.addEventListener('change', function(event){
 /*Обработчик для полей Категории товаров и  Имена сотрудников.
 Регулирует доступ к кнопкам Утвердить и Нанять*/
 
-main_functions.addEventListener('keyup', function(event){
-	let target = event.target;
-	console.log(event);
-	let reg = /^[a-zа-яё]*$/i;
-	if(target.className === 'hire-employers-item'){
-		console.log(reg.test(event.key));
-		if(!reg.test(event.key)){
-			target.value = '';
-			alert(" Можно ввести только буквы!");
-		}
-	}
-});
 
-/*Обработчик не позволяющий ввести цифры*/
+
+
+
+// event.type должен быть keypress
+function getChar(event) {
+	console.log(event.which);
+  if (event.which == null) { // IE
+    if (event.keyCode < 32) return null; // спец. символ
+    return String.fromCharCode(event.keyCode)
+  }
+
+  if (event.which != 0 && event.charCode != 0) { // все кроме IE
+    if (event.which < 1072) return null; // спец. символ
+    return String.fromCharCode(event.which); // остальные
+  }
+
+  return null; // спец. символ
+}
+
 
 function turnAllInputs (isOpen) {
 	if(!isOpen){
@@ -203,6 +235,9 @@ function turnAllInputs (isOpen) {
 }
 /*Функция регулирующая доступ к кнопкам и полям, а также удаляющая значения полей после закрытия магазина. 
 Вызывается в обработчике поля time_value*/
+
+
+
 
 
 let mainList = {
