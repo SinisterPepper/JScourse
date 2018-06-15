@@ -1,7 +1,7 @@
 let budget, 
 	storeName, 
 	price = 10,
-	discount
+	discount;
 
 let opn_btn = document.getElementById('open-btn');
 let name_value = document.getElementsByClassName('name-value')[0];
@@ -230,9 +230,9 @@ class Options {
 							width: ${this.width};
 							background-color: ${this.bg};
 							font-size: ${this.fontSize};
-							text-align: ${this.textAlign}`
+							text-align: ${this.textAlign}`;
 		div.style.marginTop = '10px';
-		
+
 		main_info.appendChild(div);
 	}
 	/*Добавляет текст в конец левого блока (main-info)*/
