@@ -96,19 +96,25 @@ window.addEventListener("DOMContentLoaded", function(){
 		if(target.className == 'description-btn'){
 			showPopUp.call(target);
 		}
+		close.addEventListener('click', function(){
+			overlay.style.display = 'none';
+			target.classList.remove('more-splash');
+			document.body.style.overflow = '';
+		});
 	});
 
 
 	/*Обработчик на кнопку Узнать больше под таймером*/
 	more.addEventListener('click', function(){
 		showPopUp.call(more);
-	});
-
-	close.addEventListener('click', function(){
+		close.addEventListener('click', function(){
 			overlay.style.display = 'none';
 			more.classList.remove('more-splash');
 			document.body.style.overflow = '';
+		});
 	});
+
+	
 
 	function showPopUp(){
 		this.classList.add('more-splash');
