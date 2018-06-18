@@ -93,7 +93,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	info.addEventListener('click', function(event){
 		let target = event.target;
-		if(target.className == 'description-btn' || target.className == 'more'){
+		if(target.className == 'description-btn'){
 			showPopUp.call(target);
 		}
 	});
