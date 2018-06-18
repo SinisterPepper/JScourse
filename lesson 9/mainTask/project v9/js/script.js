@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	let tab = document.getElementsByClassName("info-header-tab"),
 		tabContent = document.getElementsByClassName('info-tabcontent');
-		info = document.getElementsByClassName('info-header')[0];
+		info_header = document.getElementsByClassName('info-header')[0];
 
 	function hideTabContent(a){
 		for(let i = a; i < tabContent.length; i++){
@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 
-	info.addEventListener('click', function(event){
+	info_header.addEventListener('click', function(event){
 		let target = event.target;
 		if(target.className == 'info-header-tab'){
 			for(let i = 0; i < tab.length; i++){
@@ -88,35 +88,17 @@ window.addEventListener("DOMContentLoaded", function(){
 	 	overlay = document.querySelector('.overlay'),
 	 	close = document.querySelector('.popup-close');
 
-	let description = document.getElementsByClassName('description');
+	let info = document.getElementsByClassName('info')[0];
 	/*Дальше идут обработчики на каждый таб*/
-	description[0].addEventListener('click', function(event){
+	
+	info.addEventListener('click', function(event){
 		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[0]);
+		if(target.className == 'description-btn' || target.className == 'more'){
+			showPopUp.call(target);
 		}
 	});
 
-	description[1].addEventListener('click', function(event){
-		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[1]);
-		}
-	});
 
-	description[2].addEventListener('click', function(event){
-		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[2]);
-		}
-	});
-
-	description[3].addEventListener('click', function(event){
-		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[3]);
-		}
-	});
 	/*Обработчик на кнопку Узнать больше под таймером*/
 	more.addEventListener('click', function(){
 		showPopUp.call(more);
