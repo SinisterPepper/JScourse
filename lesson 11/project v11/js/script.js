@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	let tab = document.getElementsByClassName("info-header-tab"),
 		tabContent = document.getElementsByClassName('info-tabcontent');
-		info = document.getElementsByClassName('info-header')[0];
+		info_header = document.getElementsByClassName('info-header')[0];
 
 	function hideTabContent(a){
 		for(let i = a; i < tabContent.length; i++){
@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		}
 	}
 
-	info.addEventListener('click', function(event){
+	info_header.addEventListener('click', function(event){
 		let target = event.target;
 		if(target.className == 'info-header-tab'){
 			for(let i = 0; i < tab.length; i++){
@@ -88,45 +88,33 @@ window.addEventListener("DOMContentLoaded", function(){
 	 	overlay = document.querySelector('.overlay'),
 	 	close = document.querySelector('.popup-close');
 
-	let description = document.getElementsByClassName('description');
+	let info = document.getElementsByClassName('info')[0];
 	/*Дальше идут обработчики на каждый таб*/
-	description[0].addEventListener('click', function(event){
+	
+	info.addEventListener('click', function(event){
 		let target = event.target;
 		if(target.className == 'description-btn'){
-			showPopUp.call(description[0]);
+			showPopUp.call(target);
 		}
+		close.addEventListener('click', function(){
+			overlay.style.display = 'none';
+			target.classList.remove('more-splash');
+			document.body.style.overflow = '';
+		});
 	});
 
-	description[1].addEventListener('click', function(event){
-		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[1]);
-		}
-	});
-
-	description[2].addEventListener('click', function(event){
-		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[2]);
-		}
-	});
-
-	description[3].addEventListener('click', function(event){
-		let target = event.target;
-		if(target.className == 'description-btn'){
-			showPopUp.call(description[3]);
-		}
-	});
+	
 	/*Обработчик на кнопку Узнать больше под таймером*/
 	more.addEventListener('click', function(){
 		showPopUp.call(more);
-	});
-
-	close.addEventListener('click', function(){
+		close.addEventListener('click', function(){
 			overlay.style.display = 'none';
 			more.classList.remove('more-splash');
 			document.body.style.overflow = '';
+		});
 	});
+
+
 
 	function showPopUp(){
 		this.classList.add('more-splash');
@@ -148,27 +136,51 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	statusMessage.classList.add('status'); //Дописать стили
 
-	form.addEventListener("submit", function(event) {
+	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		form.appendChild(statusMessage);
 
-		//AJAX
+		sendRequest.call(form);
+
+		for (let i = 0; i < input.length; i++){
+			input[i].value = '';
+			//Очищаем поля ввода
+		}
+		
+	});
+
+
+	let contacts_form = document.getElementById('form'),
+		contacts_input = contacts_form.getElementsByTagName('input');
+
+	contacts_form.addEventListener('submit', function(event) {
+		event.preventDefault();
+		contacts_form.appendChild(statusMessage);
+		
+		sendRequest.call(contacts_form);
+		
+		for (let i = 0; i < input.length; i++){
+			contacts_input[i].value = '';
+			//Очищаем поля ввода
+		}
+	});
+
+
+	function sendRequest(){
 		let request = new XMLHttpRequest();
-		console.log(request);
 		request.open("POST", "server.php");
 
-		request.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded');
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-		let formData = new FormData(form);//Готовим данные к отправке.
+		let formData = new FormData(this);//Готовим данные к отправке.
+
 		request.send(formData);
-
 		//Дальше наблюдаем за статусом 
 
 		request.onreadystatechange = function(){
-			console.log(readyState);
 			if(request.readyState < 4){
 				statusMessage.innerHTML = message.loading;
-			} else if (request.ready === 4) {
+			} else if (request.readyState === 4) {
 				if(request.status == 200 && request.status < 300){
 					statusMessage.innerHTML = message.success;	
 					// Добавляем контент на страницу
@@ -177,11 +189,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					statusMessage.innerHTML = message.failure;
 				}
 			}
-		}
-		for (let i = 0; i < input.length; i++){
-			input[i].value = '';
-			//Очищаем поля ввода
-		}
-	});
+		};
+	}
 
 });
