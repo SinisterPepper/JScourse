@@ -127,7 +127,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	//Form
 	let message = new Object();
 	message.loading = "Загрузка...";
-	message.success = "Спасибо. Скоро мы с вами свяжемся";
+	message.success = "Спасибо. Скоро мы с вами свяжемся!";
 	message.failure = "Что-то пошло не так...";
 
 	let form = document.getElementsByClassName("main-form")[0],

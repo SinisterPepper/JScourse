@@ -679,6 +679,12 @@ header ul li:before {
   color: #fff;
   text-align: center;
 }
+
+.status{
+  color: #c78030;
+  margin-top: 30px;
+  margin-left: 30px;
+}
 .overlay .popup-form__input::-webkit-input-placeholder {
   color: #fff;
 }
