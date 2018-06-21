@@ -1,0 +1,16 @@
+Ангуляр:
+
+1)Node.js -> npm пакеты (npmjs.com)
+2)TypeScript
+3)Webpack - сборщик
+4)MVC
+5)Angular
+
+
+Реакт
+
+1)Babel (переводит ES6 в ES5)
+2)Препроцессор JSX
+3)Webpack
+4)React
+
