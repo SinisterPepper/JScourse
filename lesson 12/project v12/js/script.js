@@ -262,7 +262,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
     persons.addEventListener('change', function() {
     	let reg = /^\d+$/;
-    	console.log(reg.test(this.value));
+
     	if(reg.test(this.value)){
     		personsSum = +this.value;
 			total = (daysSum + personsSum) * 4000;
@@ -274,14 +274,13 @@ window.addEventListener("DOMContentLoaded", function(){
 			}
     	} else {
     		this.value = '';
-    		totalValue.innerHTML = 0;
     	}
     	
     });
 
     restDays.addEventListener('change', function() {
     	let reg = /^\d+$/;
-    	console.log(reg.test(this.value));
+
     	if(reg.test(this.value)){
     		daysSum = +this.value;
 	    	total = (daysSum + personsSum) * 4000;
@@ -293,7 +292,6 @@ window.addEventListener("DOMContentLoaded", function(){
 	    	}
     	} else {
     		this.value = '';
-    		totalValue.innerHTML = 0;
     	}    	
     });
 
