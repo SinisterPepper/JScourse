@@ -1,0 +1,10 @@
+.tabs_caption {
+	width: 1200px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+
+#tabs_caption li {
+	float: left;
+	margin-right: 2px;
+}

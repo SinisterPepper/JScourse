@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<!-- <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<link href='css/tabulous.css' rel='stylesheet' type='text/css'> -->
+	<style>
+            .tabs__content {
+                display: none; /* по умолчанию прячем все блоки */
+            }
+            .tabs__content.active {
+                display: block; /* по умолчанию показываем нужный блок */
+            }
+    </style>
+    
+	<link href='css/style.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/material-icons.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/calc.css">
+	<style>
+		html{
+			background: rgb(101, 92, 137);
+			font-family: "Lato", sans-serif;
+		}
+		.tabs {
+			width: 1280px;
+			margin: 0 auto;
+			margin-top: 100px;
+			padding: 40px;
+			overflow: hidden;
+			position: relative;
+			background: white;
+		}
+		.tabs__caption li {
+			margin-right: 2px;
+			display: block;
+			padding: 17px 30px;
+			background: #544f6b;
+			text-decoration: none;
+			color: #8478B3;
+			font-size: 20px;
+		}
+
+		.tabs li:hover {
+			background: rgb(78, 74, 99);
+		}
+
+	</style>
+
+
+	
+</head>
+<body>
+	<div class="tabs">
+          <ul class="tabs__caption">
+            <li class="active">Слайдер</li>
+            <li>Список дел</li>
+            <li>Калькулятор</li>
+          </ul>
+			<!--Слайдер -->
+          <div class="tabs__content active">
+            <div class="galleria">
+                <img src="src/photo1.jpg">
+                <img src="src/photo2.jpg">
+                <img src="src/photo3.jpg">
+            </div>
+          </div>
+			<!--toDoList -->
+          <div class="tabs__content">
+            <div id = "root">
+			<div class="container">
+			<h3>Добавить дело</h3>
+			<input id="new-task" type = "text">
+			<button id = "add">Добавить</button>
+			<h3>Список дел</h3>
+			<ul id = "unfinished-tasks">	
+				
+			</ul>
+			<h3>Завершенные дела</h3>
+			<ul id = "finished-tasks">	
+			</ul>
+		    </div>
+			</div>
+          </div>
+			<!--Список дел хранится в локальном хранилище, поэтому после перезагрузки страницы ничего не сохранится -->
+
+			<!--Calculator -->
+          <div class="tabs__content">
+            <div class="calculator demo">
+		        <div class="u4 display">
+		            <div class="display-inner"><div class="display-text" data-bind="text: display"></div></div>
+		        </div>
+		        <button id="calculator-button-c" class="u1 button button-red" data-bind="click: clear">c</button>
+		        <button id="calculator-button-backspace" class="u1 button button-backspace button-gray" data-bind="click: backspace">&#x21e4;</button>
+		        <button id="calculator-button-negate" class="u1 button button-gray" data-bind="click: negate">&#xb1;</button>
+		        <button id="calculator-button-÷" class="u1 button button-gray" data-bind="click: operator">÷</button>
+		        <button id="calculator-button-7" class="u1 button button-gray" data-bind="click: number">7</button>
+		        <button id="calculator-button-8" class="u1 button button-gray" data-bind="click: number">8</button>
+		        <button id="calculator-button-9" class="u1 button button-gray" data-bind="click: number">9</button>
+		        <button id="calculator-button-x" class="u1 button button-gray" data-bind="click: operator">x</button>
+		        <button id="calculator-button-4" class="u1 button button-gray" data-bind="click: number">4</button>
+		        <button id="calculator-button-5" class="u1 button button-gray" data-bind="click: number">5</button>
+		        <button id="calculator-button-6" class="u1 button button-gray" data-bind="click: number">6</button>
+		        <button id="calculator-button--" class="u1 button button-gray" data-bind="click: operator">-</button>
+		        <button id="calculator-button-1" class="u1 button button-gray" data-bind="click: number">1</button>
+		        <button id="calculator-button-2" class="u1 button button-gray" data-bind="click: number">2</button>
+		        <button id="calculator-button-3" class="u1 button button-gray" data-bind="click: number">3</button>
+		        <button id="calculator-button-+" class="u1 button button-gray" data-bind="click: operator">+</button>
+		        <button id="calculator-button-0" class="u2 button button-gray" data-bind="click: number">0</button>
+		        <button id="calculator-button-." class="u1 button button-gray" data-bind="click: number">.</button>
+		        <button id="calculator-button-=" class="u1 button button-blue" data-bind="click: operator">=</button>            
+		    </div>
+          </div>
+
+    </div><!-- .tabs-->
+
+	
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<script src="galleria/src/galleria.js"></script>
+    <script>
+	    (function() { 
+            Galleria.loadTheme('galleria/src/themes/classic/galleria.classic.js');
+            Galleria.configure({
+                transition: 'slide',
+                imageCrop: true,
+                height: 640,
+                width: 480,
+                autoplay: 3000,
+                lightbox: true
+            });
+            Galleria.run('.galleria');
+        }());
+    </script>
+
+    <script>
+            (function($) {
+                $(function() {
+
+                $('ul.tabs__caption').on('click', 'li:not(.active)', function() {
+                        $(this).addClass('active').siblings().removeClass('active')
+            .closest('div.tabs').find('div.tabs__content').removeClass('active').eq($(this).index()).addClass('active');
+            Galleria.run('.galleria');
+          });
+        });
+        })(jQuery);
+    </script>
+    <script src = "toDoList.js"></script>
+
+    <script src="knockout-2.1.0.js"></script>
+    <script src="calculator.js"></script>
+</body>
+</html>
