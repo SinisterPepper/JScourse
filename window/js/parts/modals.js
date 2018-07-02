@@ -1,14 +1,14 @@
 function modals() {
 
-	popUpOverlay = document.querySelector('.popup');
-	popUpClose = document.getElementsByClassName('popup_close')[0];
-	orderCallBack = document.getElementsByClassName('phone_link')[0];
-	callTheMaster = document.getElementsByClassName('phone_link')[1];
+	let popUpOverlay = document.querySelector('.popup');
+	let popUpClose = document.getElementsByClassName('popup_close')[0];
+	let orderCallBack = document.getElementsByClassName('phone_link')[0];
+	let callTheMaster = document.getElementsByClassName('phone_link')[1];
 	
 
-	popUpEngineerOverlay = document.querySelector('.popup_engineer');
-	popUpEngineerBtn = document.querySelector('.popup_engineer_btn');
-	popUpEngineerClose = document.getElementsByClassName('popup_close')[1];
+	let popUpEngineerOverlay = document.querySelector('.popup_engineer');
+	let popUpEngineerBtn = document.querySelector('.popup_engineer_btn');
+	let popUpEngineerClose = document.getElementsByClassName('popup_close')[1];
 
 	
 
@@ -31,7 +31,7 @@ function modals() {
 		else if(event.target == callTheMaster || event.target == orderCallBack ){
 			showPopUp.call(popUpOverlay);
 
-			popUpOverlay.addEventListener('click', function(e){
+			popUpOverlay.addEventListener('click', function(e) {
 				if(e.target.className == 'popup'){
 					closePopUp.call(popUpOverlay);
 				}
@@ -42,9 +42,6 @@ function modals() {
 		}
 		
 	});
-
-
-
 
 	function showPopUp(){
 		document.body.style.overflow = 'hidden';
