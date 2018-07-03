@@ -12,19 +12,42 @@ window.addEventListener("DOMContentLoaded", function(){
 },{"../js/parts/modals.js":2,"../js/parts/tabs.js":3}],2:[function(require,module,exports){
 function modals() {
 
-	let popUpOverlay = document.querySelector('.popup');
-	let popUpClose = document.getElementsByClassName('popup_close')[0];
-	let orderCallBack = document.getElementsByClassName('phone_link')[0];
-	let callTheMaster = document.getElementsByClassName('phone_link')[1];
+	let popUpOverlay = document.querySelector('.popup'),
+		popUpClose = document.getElementsByClassName('popup_close')[0],
+		orderCallBack = document.getElementsByClassName('phone_link')[0],
+		callTheMaster = document.getElementsByClassName('phone_link')[1];
 	
 
 
-	let popUpEngineerOverlay = document.querySelector('.popup_engineer');
-	let popUpEngineerBtn = document.querySelector('.popup_engineer_btn');
-	let popUpEngineerClose = document.getElementsByClassName('popup_close')[1];
+	let popUpEngineerOverlay = document.querySelector('.popup_engineer'),
+		popUpEngineerBtn = document.querySelector('.popup_engineer_btn'),
+		popUpEngineerClose = document.getElementsByClassName('popup_close')[1];
 
 	
-	
+	let popUpCalcBtn = document.getElementsByClassName('popup_calc_btn'),
+		popUpCalcOverlay = document.querySelector('.popup_calc'),
+		popUpCalcContent = document.querySelector('.popup_calc_content'),
+		inputWidth = popUpCalcOverlay.getElementsByClassName('form-control')[0],
+		inputHeight = popUpCalcOverlay.getElementsByClassName('form-control')[1],
+		popUpCalcClose = document.querySelector('.popup_calc_close'),
+		popUpCalcNextBtn = document.getElementsByClassName('popup_calc_button')[0];
+
+
+	let popUpCalcProfileOverlay = document.querySelector('.popup_calc_profile'),
+		popUpCalcProfileContent = document.querySelector('.popup_calc_profile_content'),
+		inputCold = document.getElementsByClassName('checkbox')[0],
+		inputWarn = document.getElementsByClassName('checkbox')[1],
+		coldCheckbox = document.getElementsByClassName('checkbox-custom')[0],
+		warmCheckbox = document.getElementsByClassName('checkbox-custom')[1],
+		popUpCalcProfileClose = document.querySelector('.popup_calc_profile_close'),
+		popUpCalcProfileNextBtn = document.getElementsByClassName('popup_calc_profile_button')[0];
+
+		
+	let popUpCalcEndOverlay = document.querySelector('.popup_calc_end'),
+		popUpCalcEndClose = document.querySelector('.popup_calc_end_close');
+
+
+
 	let timerId = setTimeout(function(){
 		showPopUp.call(popUpOverlay);
 		clearTimeout(timerId);
@@ -33,15 +56,30 @@ function modals() {
 
 	document.body.addEventListener('click', function(event){
 		event.preventDefault();
-		if(event.target == popUpEngineerBtn){
+		let target = event.target;
+		if(target == popUpEngineerBtn){
 			showPopUp.call(popUpEngineerOverlay);
 		} 
-		else if(event.target == callTheMaster || event.target == orderCallBack ){
+		else if(target == callTheMaster || target == orderCallBack ){
 			showPopUp.call(popUpOverlay);
+		}
+		else if(target.className.indexOf('popup_calc_btn') != -1) {
+			showPopUp.call(popUpCalcOverlay);
+			
+		}
+		else if(target == popUpCalcNextBtn) {
+			closePopUp.call(popUpCalcOverlay);
+			showPopUp.call(popUpCalcProfileOverlay);
+		}
+		else if(target == popUpCalcProfileNextBtn) {
+			closePopUp.call(popUpCalcProfileOverlay);
+			showPopUp.call(popUpCalcEndOverlay);
 		}
 		
 	});
 
+
+	/*Обработчики для закрытия модального окна popup*/
 	popUpOverlay.addEventListener('click', function(e) {
 		if(e.target.className == 'popup'){
 			closePopUp.call(popUpOverlay);
@@ -50,8 +88,8 @@ function modals() {
 	popUpClose.addEventListener('click', function(){
 		closePopUp.call(popUpOverlay);
 	});
-
-
+	
+	/*Обработчики для закрытия модального окна popupEngineer*/
 	popUpEngineerOverlay.addEventListener('click', function (e){
 		let target = e.target;
 		if(target.className == 'popup_engineer'){
@@ -62,6 +100,65 @@ function modals() {
 		closePopUp.call(popUpEngineerOverlay);
 	});
 
+	/*Обработчик для закрытия модального окна popupCalc*/
+	popUpCalcClose.addEventListener('click', function(){
+		closePopUp.call(popUpCalcOverlay);
+	});
+
+	/*Обработчик для закрытия модального окна popupCalcProfile*/
+	popUpCalcProfileClose.addEventListener('click', function(){
+		closePopUp.call(popUpCalcProfileOverlay);
+	});
+
+	/*Обработчик для закрытия модального окна popupCalcEnd*/
+	popUpCalcEndClose.addEventListener('click', function(){
+		closePopUp.call(popUpCalcEndOverlay);
+	});
+
+	/*Обработчик не позволяющий вводить ничего кроме цифр в поля Ширина и Высота*/
+	popUpCalcContent.addEventListener('keypress', function(event){
+		let target = event.target;
+		if(target.className === 'form-control'){
+			event.preventDefault();
+			if(/[\d]/i.test(event.key)){
+				target.value += event.key;
+			}
+			if(target.className === 'form-control'){
+				if(inputWidth.value === '' || inputHeight.value === ''){
+					popUpCalcNextBtn.disabled = true;
+				} else{
+					popUpCalcNextBtn.disabled = false;
+				}
+			}
+		}
+	});
+	/*Обработчик событий позволяющий выбрать только один профиль и разблокирующий кнопку Далее*/
+	popUpCalcProfileContent.addEventListener('click', function(event) {
+		let target = event.target;
+		if(target === coldCheckbox) {
+			if (inputCold.hasAttribute('checked')){
+				inputCold.removeAttribute('checked');
+				popUpCalcProfileNextBtn.disabled = true;
+			} else {
+				inputCold.setAttribute('checked', 'checked');
+				inputWarn.removeAttribute('checked');
+				popUpCalcProfileNextBtn.disabled = false;
+			}
+			
+		} else if (target === warmCheckbox) {
+			if (inputWarn.hasAttribute('checked')){
+				inputWarn.removeAttribute('checked');
+				popUpCalcProfileNextBtn.disabled = true;
+			} else {
+				inputWarn.setAttribute('checked', 'checked');
+				inputCold.removeAttribute('checked');
+				popUpCalcProfileNextBtn.disabled = false;
+			}
+		}
+	});
+
+
+
 	function showPopUp(){
 		document.body.style.overflow = 'hidden';
 		this.style.display = 'flex';
@@ -71,9 +168,6 @@ function modals() {
 		this.style.display = 'none';
 		document.body.style.overflow = '';
 	}
-
-	
-	
 }
 module.exports = modals;
 },{}],3:[function(require,module,exports){
@@ -91,6 +185,10 @@ function tabs() {
 		decoration_links = decoration_container.getElementsByClassName('no_click'),
 		decoration_content = decoration_container.getElementsByClassName('row')[0].children;
 	
+	let popUpCalc_container = document.getElementsByClassName('popup_calc_content')[0],
+		popUpCalc_header = popUpCalc_container.getElementsByClassName('balcon_icons')[0].getElementsByTagName('img'),
+		popUpCalc_content = popUpCalc_container.getElementsByClassName('big_img')[0].getElementsByTagName('img');
+
 	
 	function hideTabContent(a) {
 		if(this.className.indexOf('glazing_block') !== -1){
@@ -104,6 +202,11 @@ function tabs() {
 				decoration_content[j].style.display = 'none';
 				decoration_links[j].classList.remove('after_click');
 			}
+		} else if (this.id.indexOf('type') != -1) {
+			for(let j = a; j < popUpCalc_content.length; j++) {
+				popUpCalc_content[j].style.display = 'none';
+				popUpCalc_header[j].style.width = "20%";
+			}
 		}
 	
 	}
@@ -111,11 +214,12 @@ function tabs() {
 
 	hideTabContent.call(glazing_block[1], 1);
 	hideTabContent.call(decoration_block[1], 1);
+	hideTabContent.call(popUpCalc_content[1], 1);
 
 	function showTabContent(b) {
-		console.log(this.classList);
 		if(this.className.indexOf('glazing_block') != -1 && 
 				glazing_content[b].style.display == 'none'){
+			
 			hideTabContent.call(glazing_block[b], 0);
 			glazing_content[b].style.display = 'flex';
 			glazing_links[b].classList.add('active');
@@ -126,6 +230,11 @@ function tabs() {
 			hideTabContent.call(decoration_block[b], 0);
 			decoration_content[b].style.display = 'flex';
 			decoration_links[b].classList.add('after_click');
+		} 
+		else if (this.className.indexOf('type') != -1) {
+			hideTabContent.call(popUpCalc_content[b], 0);
+			popUpCalc_content[b].style.display = 'inline-block';
+			popUpCalc_header[b].style.width = "30%";
 		}
 	}
 	/*Функция показывающая содержание таба*/
@@ -156,6 +265,20 @@ function tabs() {
 		}
 	});
 
+
+	popUpCalc_container.addEventListener('click', function(event){
+		let target = event.target;
+
+		if(target.className.indexOf('type') != -1) {
+			
+			for(let i = 1; i <= popUpCalc_header.length; i++) {
+				if(target.className.indexOf(i) != -1) {
+					showTabContent.call(popUpCalc_header[i-1], i-1);
+					break;
+				}
+			}
+		}
+	});
 }
 module.exports = tabs;
 },{}]},{},[1]);

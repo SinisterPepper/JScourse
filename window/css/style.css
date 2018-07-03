@@ -1291,16 +1291,6 @@ textarea:focus {
     padding: 3rem 0;
   }
   
-  .glazing .container .glazing_slider .show {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-  }
-
-.container .glazing_slider .hide {
-  display: none;
-}
   .glazing_cold {
     margin-top: 2rem;
   }
@@ -1420,6 +1410,11 @@ textarea:focus {
   .popup_calc_content .balcon_icons {
     margin-bottom: 1rem;
   }
+  .popup_calc_content .balcon_icons img.big {
+    width: 30%;
+    height: 30%;
+  }
+
   .popup_calc_content .balcon_icons img {
     width: 20%;
   }

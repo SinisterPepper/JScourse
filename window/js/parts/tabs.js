@@ -12,6 +12,10 @@ function tabs() {
 		decoration_links = decoration_container.getElementsByClassName('no_click'),
 		decoration_content = decoration_container.getElementsByClassName('row')[0].children;
 	
+	let popUpCalc_container = document.getElementsByClassName('popup_calc_content')[0],
+		popUpCalc_header = popUpCalc_container.getElementsByClassName('balcon_icons')[0].getElementsByTagName('img'),
+		popUpCalc_content = popUpCalc_container.getElementsByClassName('big_img')[0].getElementsByTagName('img');
+
 	
 	function hideTabContent(a) {
 		if(this.className.indexOf('glazing_block') !== -1){
@@ -25,6 +29,11 @@ function tabs() {
 				decoration_content[j].style.display = 'none';
 				decoration_links[j].classList.remove('after_click');
 			}
+		} else if (this.id.indexOf('type') != -1) {
+			for(let j = a; j < popUpCalc_content.length; j++) {
+				popUpCalc_content[j].style.display = 'none';
+				popUpCalc_header[j].style.width = "20%";
+			}
 		}
 	
 	}
@@ -32,11 +41,12 @@ function tabs() {
 
 	hideTabContent.call(glazing_block[1], 1);
 	hideTabContent.call(decoration_block[1], 1);
+	hideTabContent.call(popUpCalc_content[1], 1);
 
 	function showTabContent(b) {
-		console.log(this.classList);
 		if(this.className.indexOf('glazing_block') != -1 && 
 				glazing_content[b].style.display == 'none'){
+			
 			hideTabContent.call(glazing_block[b], 0);
 			glazing_content[b].style.display = 'flex';
 			glazing_links[b].classList.add('active');
@@ -47,6 +57,11 @@ function tabs() {
 			hideTabContent.call(decoration_block[b], 0);
 			decoration_content[b].style.display = 'flex';
 			decoration_links[b].classList.add('after_click');
+		} 
+		else if (this.className.indexOf('type') != -1) {
+			hideTabContent.call(popUpCalc_content[b], 0);
+			popUpCalc_content[b].style.display = 'inline-block';
+			popUpCalc_header[b].style.width = "30%";
 		}
 	}
 	/*Функция показывающая содержание таба*/
@@ -77,5 +92,19 @@ function tabs() {
 		}
 	});
 
+
+	popUpCalc_container.addEventListener('click', function(event){
+		let target = event.target;
+
+		if(target.className.indexOf('type') != -1) {
+			
+			for(let i = 1; i <= popUpCalc_header.length; i++) {
+				if(target.className.indexOf(i) != -1) {
+					showTabContent.call(popUpCalc_header[i-1], i-1);
+					break;
+				}
+			}
+		}
+	});
 }
 module.exports = tabs;
