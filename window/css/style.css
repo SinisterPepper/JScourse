@@ -1290,6 +1290,17 @@ textarea:focus {
   .glazing {
     padding: 3rem 0;
   }
+  
+  .glazing .container .glazing_slider .show {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+.container .glazing_slider .hide {
+  display: none;
+}
   .glazing_cold {
     margin-top: 2rem;
   }
