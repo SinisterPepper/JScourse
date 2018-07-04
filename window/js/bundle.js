@@ -1,4 +1,4 @@
-let popUpCalcData={};
+popUpCalcData = {};
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 window.addEventListener("DOMContentLoaded", function(){
 
@@ -13,20 +13,35 @@ window.addEventListener("DOMContentLoaded", function(){
 	tabs();
 	timer();
 	sendForm();
-	gallery();
+	//gallery();
 });	
 },{"../js/parts/gallery.js":2,"../js/parts/modals.js":3,"../js/parts/sendForms.js":4,"../js/parts/tabs.js":5,"../js/parts/timer.js":6}],2:[function(require,module,exports){
 function gallery() {
 
-	let gallery_container = document.getElementsByClassName('container')[4],
+	let gallery_container = document.getElementsByClassName('works')[0],
 		gallery_content = gallery_container.getElementsByClassName('col-lg-3');
 		gallery_block = gallery_container.getElementsByClassName('image_link');
 	//console.log(gallery_content);
 
 	gallery_container.addEventListener('click', function(event) {
-		console.log(1);
+		let target = event.target;
+
+		if(target.className == "lupa" || target.className == 'gallery_img'){
+			if(gallery_container.style.opacity == '1') {
+				gallery_container.style.backgroundColor= '#080808';
+				gallery_container.style.opacity = '0.5';
+				document.body.style.overflow = 'hidden';
+			} else{
+				gallery_container.style.backgroundColor= '#fff';
+				gallery_container.style.opacity = '1';
+				document.body.style.overflow = '';
+			}
+			
+				
+		}
 		
 	});
+	
 
 
 }
