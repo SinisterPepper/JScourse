@@ -286,7 +286,7 @@ module.exports = tabs;
 },{}],4:[function(require,module,exports){
 function timer() {
 
-	let deadline = "2018-07-08";
+	let deadline = "2018-07-05";
 	function getTimeRemaining(endtime) {
 		
 		let t = Date.parse(endtime) - Date.parse(new Date());//Указанная дата - дата сейчас
@@ -301,9 +301,10 @@ function timer() {
 		}
 		let seconds = Math.floor((t/1000) % 60),
 			minutes = Math.floor((t/1000/60) % 60),
-			hours = Math.floor((t/(1000*60*60)%24));
+			hours = Math.floor((t/(1000*60*60)%24)),
 			days = Math.floor((t/(1000*60*60*24)));
 
+		if(days < 10) {days = "0" + days;}
 		if(hours < 10){hours = "0" + hours;}
 		if(minutes < 10){minutes = "0" + minutes;}
 		if(seconds < 10){seconds = "0" + seconds;}
