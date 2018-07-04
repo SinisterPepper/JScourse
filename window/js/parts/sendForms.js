@@ -19,7 +19,7 @@ function sendForm() {
 
 		for(let i = 0; i < callTheMasterBtn.length; i++) {
 			
-			if(target == callTheMasterBtn[i]){
+			if(target == callTheMasterBtn[i] && i !== 8){
 				
 				form[i].appendChild(statusMessage);
 			
@@ -31,6 +31,17 @@ function sendForm() {
 				inputName.value = '';
 				inputPhone.value = '';
 				break;
+			} else if(target == callTheMasterBtn[i] && i == 8){
+
+				form[i].appendChild(statusMessage);
+
+				popUpCalcData.inputName = form[i].getElementsByTagName('input')[0].value;
+				popUpCalcData.inputPhone = form[i].getElementsByTagName('input')[1].value;
+				console.log(popUpCalcData);
+				sendRequest.call(popUpCalcData);
+				form[i].getElementsByTagName('input')[0].value = '';
+				form[i].getElementsByTagName('input')[1].value = '';
+				popUpCalcData = {};
 			}
 			//Очищаем поля ввода
 			
@@ -73,6 +84,5 @@ function sendForm() {
 			}
 		};
 	}
-    /*Функция для обращения к серверу*/
 }
 module.exports = sendForm;

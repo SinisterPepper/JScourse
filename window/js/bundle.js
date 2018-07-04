@@ -1,3 +1,4 @@
+let popUpCalcData={};
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 window.addEventListener("DOMContentLoaded", function(){
 
@@ -5,14 +6,32 @@ window.addEventListener("DOMContentLoaded", function(){
 	let tabs = require('../js/parts/tabs.js');
 	let timer = require('../js/parts/timer.js');
 	let sendForm = require('../js/parts/sendForms.js');
+	let gallery = require('../js/parts/gallery.js');
 	
 
 	modals();
 	tabs();
 	timer();
 	sendForm();
+	gallery();
 });	
-},{"../js/parts/modals.js":2,"../js/parts/sendForms.js":3,"../js/parts/tabs.js":4,"../js/parts/timer.js":5}],2:[function(require,module,exports){
+},{"../js/parts/gallery.js":2,"../js/parts/modals.js":3,"../js/parts/sendForms.js":4,"../js/parts/tabs.js":5,"../js/parts/timer.js":6}],2:[function(require,module,exports){
+function gallery() {
+
+	let gallery_container = document.getElementsByClassName('container')[4],
+		gallery_content = gallery_container.getElementsByClassName('col-lg-3');
+		gallery_block = gallery_container.getElementsByClassName('image_link');
+	//console.log(gallery_content);
+
+	gallery_container.addEventListener('click', function(event) {
+		console.log(1);
+		
+	});
+
+
+}
+module.exports = gallery;
+},{}],3:[function(require,module,exports){
 function modals() {
 
 	let popUpOverlay = document.querySelector('.popup'),
@@ -35,7 +54,7 @@ function modals() {
 		popUpCalcClose = document.querySelector('.popup_calc_close'),
 		popUpCalcNextBtn = document.getElementsByClassName('popup_calc_button')[0];
 
-	let popUpCalcData = {};
+	
 
 	let popUpCalcProfileOverlay = document.querySelector('.popup_calc_profile'),
 		popUpCalcProfileContent = document.querySelector('.popup_calc_profile_content'),
@@ -76,10 +95,14 @@ function modals() {
 			closePopUp.call(popUpCalcOverlay);
 			popUpCalcData.width = inputWidth.value;
 			popUpCalcData.height = inputHeight.value;
+			inputWidth.value = '';
+			inputHeight.value = '';
 			showPopUp.call(popUpCalcProfileOverlay);
 		}
 		else if(target == popUpCalcProfileNextBtn) {
 			closePopUp.call(popUpCalcProfileOverlay);
+			inputCold.removeAttribute('checked');
+			inputWarn.removeAttribute('checked');
 			showPopUp.call(popUpCalcEndOverlay);
 		}
 		
@@ -111,18 +134,24 @@ function modals() {
 	/*Обработчик для закрытия модального окна popupCalc*/
 	popUpCalcClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcOverlay);
+		inputWidth.value = '';
+		inputHeight.value = '';
 		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcProfile*/
 	popUpCalcProfileClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcProfileOverlay);
+		inputCold.removeAttribute('checked');
+		inputWarn.removeAttribute('checked');
 		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcEnd*/
 	popUpCalcEndClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcEndOverlay);
+		popUpCalcEndOverlay.getElementsByTagName('input')[0].value = '';
+		popUpCalcEndOverlay.getElementsByTagName('input')[1].value = '';
 		popUpCalcData = {};
 	});
 
@@ -185,7 +214,7 @@ function modals() {
 	}
 }
 module.exports = modals;
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 function sendForm() {
 	let message = new Object();
 	message.loading = "Загрузка...";
@@ -197,7 +226,7 @@ function sendForm() {
 	let form = document.getElementsByClassName("form"),
 		form_input = document.getElementsByClassName('form_input'),
 		statusMessage = document.createElement('div');
-	console.log(form_input);
+	
 	statusMessage.classList.add('status'); //Дописать стили
 
 
@@ -207,8 +236,8 @@ function sendForm() {
 
 		for(let i = 0; i < callTheMasterBtn.length; i++) {
 			
-			if(target == callTheMasterBtn[i]){
-				console.log(i);
+			if(target == callTheMasterBtn[i] && i !== 8){
+				
 				form[i].appendChild(statusMessage);
 			
 				let inputName = form[i].getElementsByTagName('input')[0],
@@ -219,6 +248,17 @@ function sendForm() {
 				inputName.value = '';
 				inputPhone.value = '';
 				break;
+			} else if(target == callTheMasterBtn[i] && i == 8){
+
+				form[i].appendChild(statusMessage);
+
+				popUpCalcData.inputName = form[i].getElementsByTagName('input')[0].value;
+				popUpCalcData.inputPhone = form[i].getElementsByTagName('input')[1].value;
+				console.log(popUpCalcData);
+				sendRequest.call(popUpCalcData);
+				form[i].getElementsByTagName('input')[0].value = '';
+				form[i].getElementsByTagName('input')[1].value = '';
+				popUpCalcData = {};
 			}
 			//Очищаем поля ввода
 			
@@ -261,10 +301,9 @@ function sendForm() {
 			}
 		};
 	}
-    /*Функция для обращения к серверу*/
 }
 module.exports = sendForm;
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 function tabs() {
 
 	let glazing_container = document.getElementsByClassName('container')[2];
@@ -375,7 +414,7 @@ function tabs() {
 	});
 }
 module.exports = tabs;
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 function timer() {
 
 	let deadline = "2018-07-05";

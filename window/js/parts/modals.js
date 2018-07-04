@@ -20,7 +20,7 @@ function modals() {
 		popUpCalcClose = document.querySelector('.popup_calc_close'),
 		popUpCalcNextBtn = document.getElementsByClassName('popup_calc_button')[0];
 
-	let popUpCalcData = {};
+	
 
 	let popUpCalcProfileOverlay = document.querySelector('.popup_calc_profile'),
 		popUpCalcProfileContent = document.querySelector('.popup_calc_profile_content'),
@@ -61,10 +61,14 @@ function modals() {
 			closePopUp.call(popUpCalcOverlay);
 			popUpCalcData.width = inputWidth.value;
 			popUpCalcData.height = inputHeight.value;
+			inputWidth.value = '';
+			inputHeight.value = '';
 			showPopUp.call(popUpCalcProfileOverlay);
 		}
 		else if(target == popUpCalcProfileNextBtn) {
 			closePopUp.call(popUpCalcProfileOverlay);
+			inputCold.removeAttribute('checked');
+			inputWarn.removeAttribute('checked');
 			showPopUp.call(popUpCalcEndOverlay);
 		}
 		
@@ -96,18 +100,24 @@ function modals() {
 	/*Обработчик для закрытия модального окна popupCalc*/
 	popUpCalcClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcOverlay);
+		inputWidth.value = '';
+		inputHeight.value = '';
 		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcProfile*/
 	popUpCalcProfileClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcProfileOverlay);
+		inputCold.removeAttribute('checked');
+		inputWarn.removeAttribute('checked');
 		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcEnd*/
 	popUpCalcEndClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcEndOverlay);
+		popUpCalcEndOverlay.getElementsByTagName('input')[0].value = '';
+		popUpCalcEndOverlay.getElementsByTagName('input')[1].value = '';
 		popUpCalcData = {};
 	});
 
