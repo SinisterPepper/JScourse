@@ -20,6 +20,7 @@ function modals() {
 		popUpCalcClose = document.querySelector('.popup_calc_close'),
 		popUpCalcNextBtn = document.getElementsByClassName('popup_calc_button')[0];
 
+	let popUpCalcData = {};
 
 	let popUpCalcProfileOverlay = document.querySelector('.popup_calc_profile'),
 		popUpCalcProfileContent = document.querySelector('.popup_calc_profile_content'),
@@ -53,10 +54,13 @@ function modals() {
 		}
 		else if(target.className.indexOf('popup_calc_btn') != -1) {
 			showPopUp.call(popUpCalcOverlay);
+
 			
 		}
 		else if(target == popUpCalcNextBtn) {
 			closePopUp.call(popUpCalcOverlay);
+			popUpCalcData.width = inputWidth.value;
+			popUpCalcData.height = inputHeight.value;
 			showPopUp.call(popUpCalcProfileOverlay);
 		}
 		else if(target == popUpCalcProfileNextBtn) {
@@ -71,6 +75,7 @@ function modals() {
 	popUpOverlay.addEventListener('click', function(e) {
 		if(e.target.className == 'popup'){
 			closePopUp.call(popUpOverlay);
+
 		}
 	});
 	popUpClose.addEventListener('click', function(){
@@ -91,16 +96,19 @@ function modals() {
 	/*Обработчик для закрытия модального окна popupCalc*/
 	popUpCalcClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcOverlay);
+		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcProfile*/
 	popUpCalcProfileClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcProfileOverlay);
+		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcEnd*/
 	popUpCalcEndClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcEndOverlay);
+		popUpCalcData = {};
 	});
 
 	/*Обработчик не позволяющий вводить ничего кроме цифр в поля Ширина и Высота*/
@@ -126,19 +134,23 @@ function modals() {
 		if(target === coldCheckbox) {
 			if (inputCold.hasAttribute('checked')){
 				inputCold.removeAttribute('checked');
+				popUpCalcData.thermal = '';
 				popUpCalcProfileNextBtn.disabled = true;
 			} else {
 				inputCold.setAttribute('checked', 'checked');
 				inputWarn.removeAttribute('checked');
+				popUpCalcData.thermal = 'cold';
 				popUpCalcProfileNextBtn.disabled = false;
 			}
 			
 		} else if (target === warmCheckbox) {
 			if (inputWarn.hasAttribute('checked')){
 				inputWarn.removeAttribute('checked');
+				popUpCalcData.thermal = '';
 				popUpCalcProfileNextBtn.disabled = true;
 			} else {
 				inputWarn.setAttribute('checked', 'checked');
+				popUpCalcData.thermal = 'warm';
 				inputCold.removeAttribute('checked');
 				popUpCalcProfileNextBtn.disabled = false;
 			}

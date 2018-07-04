@@ -4,14 +4,15 @@ window.addEventListener("DOMContentLoaded", function(){
 	let modals = require('../js/parts/modals.js');
 	let tabs = require('../js/parts/tabs.js');
 	let timer = require('../js/parts/timer.js');
+	let sendForm = require('../js/parts/sendForms.js');
 	
 
 	modals();
 	tabs();
 	timer();
-
+	sendForm();
 });	
-},{"../js/parts/modals.js":2,"../js/parts/tabs.js":3,"../js/parts/timer.js":4}],2:[function(require,module,exports){
+},{"../js/parts/modals.js":2,"../js/parts/sendForms.js":3,"../js/parts/tabs.js":4,"../js/parts/timer.js":5}],2:[function(require,module,exports){
 function modals() {
 
 	let popUpOverlay = document.querySelector('.popup'),
@@ -34,6 +35,7 @@ function modals() {
 		popUpCalcClose = document.querySelector('.popup_calc_close'),
 		popUpCalcNextBtn = document.getElementsByClassName('popup_calc_button')[0];
 
+	let popUpCalcData = {};
 
 	let popUpCalcProfileOverlay = document.querySelector('.popup_calc_profile'),
 		popUpCalcProfileContent = document.querySelector('.popup_calc_profile_content'),
@@ -67,10 +69,13 @@ function modals() {
 		}
 		else if(target.className.indexOf('popup_calc_btn') != -1) {
 			showPopUp.call(popUpCalcOverlay);
+
 			
 		}
 		else if(target == popUpCalcNextBtn) {
 			closePopUp.call(popUpCalcOverlay);
+			popUpCalcData.width = inputWidth.value;
+			popUpCalcData.height = inputHeight.value;
 			showPopUp.call(popUpCalcProfileOverlay);
 		}
 		else if(target == popUpCalcProfileNextBtn) {
@@ -85,6 +90,7 @@ function modals() {
 	popUpOverlay.addEventListener('click', function(e) {
 		if(e.target.className == 'popup'){
 			closePopUp.call(popUpOverlay);
+
 		}
 	});
 	popUpClose.addEventListener('click', function(){
@@ -105,16 +111,19 @@ function modals() {
 	/*Обработчик для закрытия модального окна popupCalc*/
 	popUpCalcClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcOverlay);
+		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcProfile*/
 	popUpCalcProfileClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcProfileOverlay);
+		popUpCalcData = {};
 	});
 
 	/*Обработчик для закрытия модального окна popupCalcEnd*/
 	popUpCalcEndClose.addEventListener('click', function(){
 		closePopUp.call(popUpCalcEndOverlay);
+		popUpCalcData = {};
 	});
 
 	/*Обработчик не позволяющий вводить ничего кроме цифр в поля Ширина и Высота*/
@@ -140,19 +149,23 @@ function modals() {
 		if(target === coldCheckbox) {
 			if (inputCold.hasAttribute('checked')){
 				inputCold.removeAttribute('checked');
+				popUpCalcData.thermal = '';
 				popUpCalcProfileNextBtn.disabled = true;
 			} else {
 				inputCold.setAttribute('checked', 'checked');
 				inputWarn.removeAttribute('checked');
+				popUpCalcData.thermal = 'cold';
 				popUpCalcProfileNextBtn.disabled = false;
 			}
 			
 		} else if (target === warmCheckbox) {
 			if (inputWarn.hasAttribute('checked')){
 				inputWarn.removeAttribute('checked');
+				popUpCalcData.thermal = '';
 				popUpCalcProfileNextBtn.disabled = true;
 			} else {
 				inputWarn.setAttribute('checked', 'checked');
+				popUpCalcData.thermal = 'warm';
 				inputCold.removeAttribute('checked');
 				popUpCalcProfileNextBtn.disabled = false;
 			}
@@ -173,6 +186,85 @@ function modals() {
 }
 module.exports = modals;
 },{}],3:[function(require,module,exports){
+function sendForm() {
+	let message = new Object();
+	message.loading = "Загрузка...";
+	message.success = "Спасибо. Скоро мы с вами свяжемся!";
+	message.failure = "Что-то пошло не так...";
+
+	let callTheMasterBtn = document.getElementsByClassName('btn-block');
+
+	let form = document.getElementsByClassName("form"),
+		form_input = document.getElementsByClassName('form_input'),
+		statusMessage = document.createElement('div');
+	console.log(form_input);
+	statusMessage.classList.add('status'); //Дописать стили
+
+
+	document.body.addEventListener('click', function(event) {
+		event.preventDefault()	
+		let target = event.target;
+
+		for(let i = 0; i < callTheMasterBtn.length; i++) {
+			
+			if(target == callTheMasterBtn[i]){
+				console.log(i);
+				form[i].appendChild(statusMessage);
+			
+				let inputName = form[i].getElementsByTagName('input')[0],
+					inputPhone = form[i].getElementsByTagName('input')[1];
+				
+				sendRequest.call(form[i]);
+
+				inputName.value = '';
+				inputPhone.value = '';
+				break;
+			}
+			//Очищаем поля ввода
+			
+		}		
+	});
+
+	document.body.addEventListener('keypress', function(event) {
+		let target = event.target;
+		if(target.name === 'user_phone'){
+			event.preventDefault();
+			
+			if(/[\d]/i.test(event.key)){
+				target.value += event.key;
+			}
+		}
+	});
+
+	function sendRequest(){
+		let request = new XMLHttpRequest();
+		request.open("POST", "server.php");
+
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+		let formData = new FormData(this);//Готовим данные к отправке.
+
+		request.send(formData);
+		//Дальше наблюдаем за статусом 
+
+		request.onreadystatechange = function(){
+			if(request.readyState < 4){
+				statusMessage.innerHTML = message.loading;
+			} else if (request.readyState === 4) {
+				if(request.status == 200 && request.status < 300){
+					statusMessage.innerHTML = message.success;	
+					// Добавляем контент на страницу
+				}
+				else {
+					statusMessage.innerHTML = message.failure;
+				}
+			}
+		};
+	}
+    /*Функция для обращения к серверу*/
+}
+module.exports = sendForm;
+},{}],4:[function(require,module,exports){
 function tabs() {
 
 	let glazing_container = document.getElementsByClassName('container')[2];
@@ -283,7 +375,7 @@ function tabs() {
 	});
 }
 module.exports = tabs;
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 function timer() {
 
 	let deadline = "2018-07-05";
