@@ -37,7 +37,6 @@ function sendForm() {
 
 				popUpCalcData.inputName = form[i].getElementsByTagName('input')[0].value;
 				popUpCalcData.inputPhone = form[i].getElementsByTagName('input')[1].value;
-				console.log(popUpCalcData);
 				sendRequest.call(popUpCalcData);
 				form[i].getElementsByTagName('input')[0].value = '';
 				form[i].getElementsByTagName('input')[1].value = '';
