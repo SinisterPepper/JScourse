@@ -588,7 +588,8 @@ textarea:focus {
   line-height: 1.6;
 }
 .sale .eTimer {
-  text-align: center;
+  font-size: 2.4rem;
+  margin-left: 75px;
 }
 /*Contacts*/
 .contacts {
